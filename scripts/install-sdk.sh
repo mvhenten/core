@@ -50,13 +50,20 @@ resetColor=$'\e[0m'
 
 updateNodeModules() {
     echo "${magenta}--- Running npm install --------------------------------------------${resetColor}"
+    
     "$NPM" install --production
     
-    for i in $(git show HEAD:node_modules/); do
-        if [ "$i" != tree ] && [ "$i" != "HEAD:node_modules/" ]; then
-            [ -d node_modules/$i ] || git checkout HEAD -- node_modules/$i;
-        fi
+    echo "Linking local dependencies"
+
+    for i in $(ls packages); do
+        pushd packages/$i
+        npm link
+        popd
+        pushd node_modules
+        npm link $i
+        popd
     done
+
     rm -f package-lock.json
     
     echo "${magenta}--------------------------------------------------------------------${resetColor}"

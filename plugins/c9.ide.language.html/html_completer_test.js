@@ -2,7 +2,7 @@
 "use server";
 
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 require("../../test/setup_paths");
 if (typeof process !== "undefined") {
     require("amd-loader");

@@ -5,7 +5,7 @@
 var assert = require("assert");
 var Cache = require("./cache");
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 describe("Cache", function() {
     var cache;

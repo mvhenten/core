@@ -5,7 +5,7 @@
 
 "use server";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 require("setup_paths");
 
 var Cookie = require("cookie");

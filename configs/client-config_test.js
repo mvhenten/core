@@ -7,7 +7,7 @@
 
 require("amd-loader");
 require("setup_paths");
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var assert = require("assert");
 var fs = require("fs");

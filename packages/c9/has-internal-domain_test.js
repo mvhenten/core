@@ -1,7 +1,7 @@
 "use strict";
 "use mocha";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 var assert = require("assert");
 var faker = require("faker");
 var hasInternalDomain= require("c9/has-internal-domain");

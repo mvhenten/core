@@ -4,7 +4,7 @@
 "use server";
 
 require("setup_paths");
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var assert = require("assert-diff");
 var available = require("./available");

@@ -3,7 +3,7 @@
 "use server";
 "use mocha";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var assert = require("assert");
 var passcrypt = require('./passcrypt');

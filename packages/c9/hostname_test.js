@@ -3,7 +3,7 @@
 "use server";
 "use mocha";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var assert = require("assert-diff");
 var hostname = require("./hostname");

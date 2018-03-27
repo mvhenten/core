@@ -1,7 +1,7 @@
 "use strict";
 "use mocha";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 var assert = require("assert");
 var isZuoraId= require("c9/is-zuora-id");
 

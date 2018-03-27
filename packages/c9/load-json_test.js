@@ -1,7 +1,7 @@
 "use strict";
 "use server";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var assert = require("assert");
 var json = require("./load-json");

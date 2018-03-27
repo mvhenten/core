@@ -69,7 +69,7 @@ cp -a scripts/makest* $APPDIR/scripts
 
 
 node -e " 
-    require('c9/setup_paths');
+    require('setup_paths');
     require('amd-loader');
     var fs = require('fs');
     var path = require('path');

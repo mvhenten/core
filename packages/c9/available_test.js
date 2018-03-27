@@ -3,7 +3,7 @@
 "use strict";
 "use server";
 
-require("c9/setup_paths");
+require("setup_paths");
 require("c9/inline-mocha")(module);
 
 var assert = require("assert-diff");

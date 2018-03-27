@@ -5,7 +5,7 @@
 "use server";
 
 require("c9/inline-mocha")(module);
-require("c9/setup_paths");
+require("setup_paths");
 
 var assert = require("assert");
 var ConnectCookie = require("./session/cookie");

@@ -15,7 +15,7 @@ var child_process = require("child_process");
 require("setup_paths");
 
 if (process.version.match(/^v0/) && parseFloat(process.version.substr(3)) < 10) {
-    console.warn("You're using Node.js version " + process.version 
+    console.warn("You're using Node.js version " + process.version
         + ". Version 0.10 or higher is recommended. Some features will not work.");
 }
 

@@ -131,7 +131,7 @@ describe("lib/session", function() {
 
         req.sessionID = sessionID;
         req.cookies = Cookie.parse(cookie);
-        
+
         var decryptSpy = sinon.spy(decrypt, "decrypt");
 
         // forces code down the path in L262
@@ -146,10 +146,10 @@ describe("lib/session", function() {
                 unsignedCookie: sessionID,
                 usedSecret: secret[2]
             }, "our cookie was decrypted");
-            
+
             // in the "header" listener we check for the cookie.
             var sessionCookie = new ConnectCookie({});
-            
+
             // forces the if on L259
             sessionCookie.expires = new Date(Date.now() + 1000);
 
@@ -158,7 +158,7 @@ describe("lib/session", function() {
             req.session = {
                 cookie: sessionCookie
             };
-            
+
             // kick of the listener
             res.emit("header");
 
@@ -177,7 +177,7 @@ describe("lib/session", function() {
                 unsignedCookie: req.sessionID,
                 usedSecret: secret[1]
             });
-            
+
             hash.hash.restore();
             done();
         });

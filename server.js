@@ -12,10 +12,10 @@ var os = require("os");
 var urls = require("c9/urls");
 var hostname = require("c9/hostname");
 var child_process = require("child_process");
-require("c9/setup_paths.js");
+require("@c9/setup_paths");
 
 if (process.version.match(/^v0/) && parseFloat(process.version.substr(3)) < 10) {
-    console.warn("You're using Node.js version " + process.version 
+    console.warn("You're using Node.js version " + process.version
         + ". Version 0.10 or higher is recommended. Some features will not work.");
 }
 

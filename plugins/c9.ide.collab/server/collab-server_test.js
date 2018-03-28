@@ -2,7 +2,7 @@
 "use server";
 
 
-require("c9/inline-mocha")(module, null, { globals: ["db", "columnTypes"]});
+require("inline-mocha")(module, null, { globals: ["db", "columnTypes"]});
 
 var assert = require("assert");
 var async = require("async");

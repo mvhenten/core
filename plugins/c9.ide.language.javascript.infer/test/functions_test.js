@@ -3,7 +3,7 @@
 "use server";
 
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 describe(__filename, function() {
     it("should analyze 'functions.js'", require('./framework').buildTest("functions.js"));

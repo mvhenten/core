@@ -4,8 +4,8 @@
 "use strict";
 "use server";
 
-require("c9/inline-mocha")(module);
-require("c9/setup_paths");
+require("inline-mocha")(module);
+require("setup_paths");
 
 var async = require("async");
 var assert = require("assert");
@@ -17,18 +17,18 @@ var testDb = require("../c9.db.redis/test_redis");
 var setupFixtures = require("test/lib/integration/setup");
 
 describe(__filename, function() {
-    
+
     var db, serverList, client;
     var testUser, testProject, testRemote, testContainer;
     var loggedInUser = null;
-    
+
     before(function(next) {
         baseTest({
             config: "preview",
         }, function(err, services) {
             db = services.db;
             serverList = services["vfs.serverlist"];
-            
+
             services.connect.useSetup(function(req, res, next) {
                 req.user = loggedInUser;
                 next();
@@ -42,11 +42,11 @@ describe(__filename, function() {
             testProject = require("test/lib/integration/db/project")(db);
             testRemote = require("test/lib/integration/db/mock-remote")(db);
             testContainer = require("test/lib/integration/db/mock-container")(db);
-            
+
             next(err);
         });
     });
-    
+
     after(function(next) {
         testDb.stop(next);
     });
@@ -106,9 +106,9 @@ describe(__filename, function() {
                 },
                 function(ctx, next) {
                     db.WorkspaceMember.create(
-                        private2, 
-                        user1.id, 
-                        db.WorkspaceMember.ACL_R, 
+                        private2,
+                        user1.id,
+                        db.WorkspaceMember.ACL_R,
                         db.Project.ROLE_COLLABORATOR, null, next
                     );
                 },
@@ -123,7 +123,7 @@ describe(__filename, function() {
                      * true         visitor/collaborator/admin	public	    view
                      * true         visitor/collaborator/admin	private	    view
                      */
-                     
+
                      var expect = [
                         { uid: user1.id, role: db.Project.ROLE_NONE, p: public1, code: 200 },
                         { uid: -1, role: db.Project.ROLE_NONE, p: public1, code: 200 },
@@ -132,18 +132,18 @@ describe(__filename, function() {
                         { uid: user1.id, role: db.Project.ROLE_COLLABORATOR, p: public1, code: 200 },
                         { uid: user2.id, role: db.Project.ROLE_ADMIN, p: private2, code: 200 }
                     ];
-                    
+
                     async.eachSeries(expect, function(expect, next) {
                         var path = "/" + expect.p.owner.name + "/" + expect.p.name + "/";
 
                         nock('http://vfs.c9.dev')
                             .get("/" + expect.p.id + "/preview/")
                             .reply(200, []);
-                        
+
                         loggedInUser = {
                             id: expect.uid
                         };
-                        
+
                         client.get(path, function (err, res) {
                             assert((err && err.code) == expect.code || expect.code == 200, "Wrong return code");
                             next();

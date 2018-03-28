@@ -2,7 +2,7 @@
 "use strict";
 
 require("amd-loader");
-require("c9/setup_paths.js");
+require("setup_paths");
 var path = require("path");
 var architect = require("architect");
 var optimist = require("optimist");
@@ -26,17 +26,17 @@ if (!module.parent) {
         .describe("dest", "destination folder for the static files")
         .boolean("help")
         .describe("help", "Show command line options.");
-        
+
     var argv = options.argv;
-    
+
     if (argv.help) {
         options.showHelp();
         process.exit();
     }
-    
+
     var config = argv._[2] || "ide";
     var settings = argv.settings;
-    
+
     main(config, settings, argv, function(err) {
         if (err) {
             console.error(err);

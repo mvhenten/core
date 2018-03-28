@@ -5,7 +5,7 @@
 "use server";
 
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var expect = require("chai").expect;
 var assert = require("assert");

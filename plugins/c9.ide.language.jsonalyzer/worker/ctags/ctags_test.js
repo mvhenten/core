@@ -1,7 +1,7 @@
 "use server";
 
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 if (typeof define === "undefined") {
     require("amd-loader");
 }

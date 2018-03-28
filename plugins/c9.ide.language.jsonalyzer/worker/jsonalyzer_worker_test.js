@@ -7,7 +7,7 @@ require("../../../test/setup_paths");
 
 if (typeof define === "undefined") {
     require("amd-loader");
-    require("c9/inline-mocha")(module);
+    require("inline-mocha")(module);
 }
 
 define(function(require, exports, module) {

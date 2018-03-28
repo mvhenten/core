@@ -68,13 +68,13 @@ cp settings/standalone.js $APPDIR/settings
 cp -a scripts/makest* $APPDIR/scripts
 
 
-node -e " 
-    require('c9/setup_paths');
+node -e "
+    require('setup_paths');
     require('amd-loader');
     var fs = require('fs');
     var path = require('path');
     var copy = require('architect-build/copy');
-    
+
     function pluginDirs(plugins) {
         var map = Object.create(null);
         plugins.forEach(function(p) {
@@ -92,7 +92,7 @@ console.log('Client Plugins:');
         exclude: /\\.(js|css|less|xml)$|^mock$/,
         onDir: function(e) { console.log('\x1b[1A\x1b[0K' + e) }
     });
-    
+
 console.log('CLI Plugins:');
     plugins = require('./configs/cli')();
     copy.dirs('$SOURCE', '$APPDIR', pluginDirs(plugins), {

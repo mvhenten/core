@@ -6,8 +6,8 @@
 
 
 require("amd-loader");
-require("c9/setup_paths");
-require("c9/inline-mocha")(module);
+require("setup_paths");
+require("inline-mocha")(module);
 
 var assert = require("assert");
 var fs = require("fs");
@@ -15,18 +15,18 @@ var Module = require("module");
 
 describe("client config consistency", function() {
     // this.timeout(60000);
-    
+
     var fileCache = Object.create(null);
     var clientOptions;
     var root = __dirname + "/../";
-    
+
     it("should get clientOptions from server", function(next) {
         fetchClientOptions(function(err, clientOptions) {
             assert(!err && clientOptions);
             next();
-        }); 
+        });
     });
-    
+
     fs.readdirSync(root + "/configs").filter(function(name) {
         return /client-(workspace|ssh|default)/.test(name);
     }).concat(
@@ -40,7 +40,7 @@ describe("client config consistency", function() {
             });
         });
     });
-    
+
     function fetchClientOptions(callback) {
         if (clientOptions)
             return callback(null, JSON.parse(JSON.stringify(clientOptions)));
@@ -52,8 +52,8 @@ describe("client config consistency", function() {
             fetchClientOptions(callback);
         });
     }
-    
-    
+
+
     function resolveModulePath(base, packagePath) {
         return Module._resolveFilename(packagePath, {
             paths: Module._nodeModulePaths(base),
@@ -61,13 +61,13 @@ describe("client config consistency", function() {
             id: base,
         });
     }
-        
+
     function checkConfig(name, clientOptions, next) {
         var hasError = false;
         var configPath = root + "/configs/" + name;
         var configPathReal = fs.realpathSync(configPath);
         var clientPlugins = require(configPath)(clientOptions);
-        
+
         clientPlugins = clientPlugins.map(function(p, i) {
             if (typeof p == "string")
                 return {packagePath: p};
@@ -76,13 +76,13 @@ describe("client config consistency", function() {
         clientPlugins.forEach(function(p) {
             if (p.packagePath) {
                 if (!fileCache[p.packagePath]) {
-                    
+
                     var filePath;
                     try {
                         filePath = require.resolve(p.packagePath);
-                    } 
+                    }
                     catch (e) {
-                        try { 
+                        try {
                             filePath = require.resolve(p.packagePath.replace(/^plugins\//, ""));
                         } catch (e) {
                             // TODO instead of quessing we need a simple way of getting pathmap
@@ -99,7 +99,7 @@ describe("client config consistency", function() {
                 p.consumes = getDeps("consumes", source);
             }
         });
-        
+
         var provides = { "auth.bootstrap": 1, "hub": 1, "app": 1 };
         var paths = {};
         clientPlugins.forEach(function(p) {
@@ -127,12 +127,12 @@ describe("client config consistency", function() {
                 });
             }
         });
-        
+
         if (unresolved.length) {
             // not throwing an error to check all configs
             hasError = true;
         }
-        
+
         function getDeps(type, source) {
             var re = new RegExp(type + /\s*=\s*(\[[^\[\]]*\])/.source);
             var m = source.match(re);
@@ -143,11 +143,11 @@ describe("client config consistency", function() {
             return JSON.parse(m);
         }
         assert(!unresolved.length, (
-                "unresolved plugins in /configs/" + name + 
+                "unresolved plugins in /configs/" + name +
                 JSON.stringify(unresolved, null, 4)
             ).replace(/^/gm, "\t")
         );
         next();
     }
-    
+
 });

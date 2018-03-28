@@ -3,7 +3,7 @@
 "use strict";
 "use server";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 require("amd-loader");
 
 var assert = require("assert-diff");

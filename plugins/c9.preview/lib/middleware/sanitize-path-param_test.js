@@ -1,7 +1,7 @@
 "use struct";
 "use server";
 
-require("c9/inline-mocha")(module);
+require("inline-mocha")(module);
 
 var sanitize = require("./sanitize-path-param");
 var async = require("async");

@@ -50,14 +50,14 @@ resetColor=$'\e[0m'
 
 updateNodeModules() {
     echo "${magenta}--- Running npm install --------------------------------------------${resetColor}"
-    
+
     "$NPM" install --production
-    
+
     echo "Linking local dependencies"
 
     for i in $(ls packages); do
         pushd packages/$i
-        npm link
+        npm link --production
         popd
         pushd node_modules
         npm link $i

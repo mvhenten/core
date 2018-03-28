@@ -56,6 +56,9 @@ updateNodeModules() {
     echo "Linking local dependencies"
 
     for i in $(ls packages); do
+        if [[ $i =~ "setup_paths" ]]; then
+            break;
+        fi
         pushd packages/$i
         npm link --production
         popd
@@ -65,18 +68,18 @@ updateNodeModules() {
     done
 
     rm -f package-lock.json
-    
+
     echo "${magenta}--------------------------------------------------------------------${resetColor}"
 }
 
 updateCore() {
-    if [ "$NO_PULL" ]; then 
+    if [ "$NO_PULL" ]; then
         return 0;
     fi
-    
+
     # without this git merge fails on windows
     mv ./scripts/install-sdk.sh  './scripts/.#install-sdk-tmp.sh'
-    rm -f ./scripts/.install-sdk-tmp.sh 
+    rm -f ./scripts/.install-sdk-tmp.sh
     cp './scripts/.#install-sdk-tmp.sh' ./scripts/install-sdk.sh
     git checkout -- ./scripts/install-sdk.sh
 
